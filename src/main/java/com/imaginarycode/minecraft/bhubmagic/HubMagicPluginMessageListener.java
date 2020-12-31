@@ -24,12 +24,12 @@
  *
  * For more information, please refer to <http://unlicense.org/>
  */
-package com.imaginarycode.minecraft.hubmagic;
+package com.imaginarycode.minecraft.bhubmagic;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
-import com.imaginarycode.minecraft.hubmagic.selectors.ServerSelector;
-import com.imaginarycode.minecraft.hubmagic.selectors.ServerSelectors;
+import com.imaginarycode.minecraft.bhubmagic.selectors.ServerSelector;
+import com.imaginarycode.minecraft.bhubmagic.selectors.ServerSelectors;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.connection.Server;
 import net.md_5.bungee.api.event.PluginMessageEvent;

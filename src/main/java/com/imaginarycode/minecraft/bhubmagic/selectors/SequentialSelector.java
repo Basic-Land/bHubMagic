@@ -24,11 +24,34 @@
  *
  * For more information, please refer to <http://unlicense.org/>
  */
-package com.imaginarycode.minecraft.hubmagic.selectors;
+package com.imaginarycode.minecraft.bhubmagic.selectors;
 
+import com.imaginarycode.minecraft.bhubmagic.HubMagic;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
-public interface ServerSelector {
-    ServerInfo chooseServer(ProxiedPlayer player);
+public class SequentialSelector implements ServerSelector {
+    private int index = 0;
+
+    private synchronized int wrapIndex() {
+        int oldIdx = index;
+        if (index++ >= HubMagic.getPlugin().getServers().size()) {
+            oldIdx = 0;
+            index = 0;
+        }
+        return oldIdx;
+    }
+
+    @Override
+    public ServerInfo chooseServer(ProxiedPlayer player) {
+        ServerInfo info = null;
+        int tries = 0;
+
+        while (info == null || (!HubMagic.getPlugin().getPingManager().consideredAvailable(info, player) && tries < 5)) {
+            info = HubMagic.getPlugin().getServers().get(wrapIndex());
+            tries++;
+        }
+
+        return info;
+    }
 }

@@ -1,4 +1,4 @@
-name: HubMagic
-main: com.imaginarycode.minecraft.hubmagic.HubMagic
+name: bHubMagic
+main: com.imaginarycode.minecraft.bhubmagic.HubMagic
 version: 0.2.6
 author: tuxed

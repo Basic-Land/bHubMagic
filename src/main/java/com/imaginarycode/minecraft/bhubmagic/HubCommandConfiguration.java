@@ -24,7 +24,7 @@
  *
  * For more information, please refer to <http://unlicense.org/>
  */
-package com.imaginarycode.minecraft.hubmagic;
+package com.imaginarycode.minecraft.bhubmagic;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMultimap;
@@ -37,12 +37,14 @@ import java.util.*;
 class HubCommandConfiguration {
     private final Multimap<String, String> skippingPatterns;
     private final boolean permissionRequired;
+    private final int cooldownTime;
     private final Map<String, String> messages = new HashMap<>(ImmutableMap.of(
             "already_connected", ChatColor.RED + "You are already on a hub.",
             "no_hubs_available", ChatColor.RED + "No hubs are currently available to connect to."
     ));
 
     HubCommandConfiguration(Configuration configuration) {
+        cooldownTime = configuration.getInt("hub-command.cooldown");
         permissionRequired = configuration.getBoolean("hub-command.requires-permission", false);
         ImmutableMultimap.Builder<String, String> builder = ImmutableMultimap.builder();
         Configuration configuration1 = configuration.getSection("hub-command.forwarding");
@@ -59,13 +61,8 @@ class HubCommandConfiguration {
 
         skippingPatterns = builder.build();
 
-        Object msgs = configuration.get("hub-command.messages");
-        if (msgs instanceof Map) {
-            Map<?, ?> msgMap = (Map) msgs;
-
-            for (Map.Entry<?, ?> entry : msgMap.entrySet()) {
-                messages.put(entry.getKey().toString(), ChatColor.translateAlternateColorCodes('&', entry.getValue().toString()));
-            }
+        for (String key : configuration.getSection("hub-command.messages").getKeys()) {
+            messages.put(key, ChatColor.translateAlternateColorCodes('&', configuration.getString("hub-command.messages."+ key)));
         }
     }
 
@@ -79,5 +76,9 @@ class HubCommandConfiguration {
 
     public Map<String, String> getMessages() {
         return messages;
+    }
+
+    public int getCooldownTime() {
+        return cooldownTime;
     }
 }

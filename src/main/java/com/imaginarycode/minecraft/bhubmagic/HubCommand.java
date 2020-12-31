@@ -24,9 +24,10 @@
  *
  * For more information, please refer to <http://unlicense.org/>
  */
-package com.imaginarycode.minecraft.hubmagic;
+package com.imaginarycode.minecraft.bhubmagic;
 
 import com.google.common.base.Joiner;
+import com.google.common.collect.Maps;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -34,8 +35,11 @@ import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
+import java.util.HashMap;
+
 class HubCommand extends Command {
     private final HubCommandConfiguration configuration;
+    private final HashMap<ProxiedPlayer, Long> cooldown = Maps.newHashMap();
 
     HubCommand(String name, HubCommandConfiguration configuration) {
         super(name, configuration.isPermissionRequired() ? "hubmagic.hub" : null);
@@ -64,6 +68,15 @@ class HubCommand extends Command {
             return;
         }
 
+        if (cooldown.containsKey(player)) {
+            if (cooldown.get(player) + configuration.getCooldownTime() * 1000 > System.currentTimeMillis()) {
+                commandSender.sendMessage(configuration.getMessages().get("cooldown"));
+                return;
+            }
+        }
+
+        cooldown.put(player, System.currentTimeMillis());
+
         ServerInfo selected = HubMagic.getPlugin().getServerSelector().chooseServer(player);
 
         if (selected == null)
@@ -73,6 +86,6 @@ class HubCommand extends Command {
             return;
         }
 
-        player.connect(HubMagic.getPlugin().getServerSelector().chooseServer(player));
+        player.connect(selected);
     }
 }

@@ -24,16 +24,41 @@
  *
  * For more information, please refer to <http://unlicense.org/>
  */
-package com.imaginarycode.minecraft.hubmagic;
+package com.imaginarycode.minecraft.bhubmagic.ping;
 
-import net.md_5.bungee.api.event.ProxyReloadEvent;
-import net.md_5.bungee.api.plugin.Listener;
-import net.md_5.bungee.event.EventHandler;
+public class PingResult {
+    /**
+     * Static singleton for servers that are down.
+     */
+    public static final PingResult DOWN = new PingResult(true);
 
-public class HubMagicReloadListener implements Listener {
-    @EventHandler
-    public void onProxyReload(ProxyReloadEvent event) {
-        // Upon reload, some servers could have changed. Reload HubMagic too.
-        HubMagic.getPlugin().reloadPlugin();
+    private final boolean down;
+    private final int playerCount;
+    private final int playerMax;
+
+    private PingResult(boolean down) {
+        this(down, 0, 0);
+    }
+
+    public PingResult(boolean down, int playerCount, int playerMax) {
+        this.down = down;
+        this.playerCount = playerCount;
+        this.playerMax = playerMax;
+    }
+
+    public boolean isDown() {
+        return down;
+    }
+
+    public int getPlayerCount() {
+        return playerCount;
+    }
+
+    public int getPlayerMax() {
+        return playerMax;
+    }
+
+    public static PingResult from(boolean down, int playerCount, int playerMax) {
+        return new PingResult(down, playerCount, playerMax);
     }
 }

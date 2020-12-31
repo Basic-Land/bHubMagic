@@ -33,7 +33,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.imaginarycode.minecraft.hubmagic</groupId>
-    <artifactId>HubMagic</artifactId>
+    <artifactId>bHubMagic</artifactId>
     <version>0.2.6</version>
 
     <repositories>
@@ -73,6 +73,7 @@
                         <exclude>.gitignore</exclude>
                         <exclude>src/test/resources/**</exclude>
                         <exclude>src/main/resources/**</exclude>
+                        <exclude>target/**</exclude>
                     </excludes>
                 </configuration>
                 <executions>

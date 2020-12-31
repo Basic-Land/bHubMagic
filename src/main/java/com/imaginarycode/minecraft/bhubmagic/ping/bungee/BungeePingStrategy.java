@@ -24,12 +24,11 @@
  *
  * For more information, please refer to <http://unlicense.org/>
  */
-package com.imaginarycode.minecraft.hubmagic.ping.bungee;
+package com.imaginarycode.minecraft.bhubmagic.ping.bungee;
 
-import com.imaginarycode.minecraft.hubmagic.ping.PingResult;
-import com.imaginarycode.minecraft.hubmagic.ping.PingStrategy;
+import com.imaginarycode.minecraft.bhubmagic.ping.PingResult;
+import com.imaginarycode.minecraft.bhubmagic.ping.PingStrategy;
 import net.md_5.bungee.api.Callback;
-import net.md_5.bungee.api.ServerPing;
 import net.md_5.bungee.api.config.ServerInfo;
 
 public class BungeePingStrategy implements PingStrategy {

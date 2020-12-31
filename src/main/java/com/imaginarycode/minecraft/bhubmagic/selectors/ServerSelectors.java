@@ -24,9 +24,9 @@
  *
  * For more information, please refer to <http://unlicense.org/>
  */
-package com.imaginarycode.minecraft.hubmagic.selectors;
+package com.imaginarycode.minecraft.bhubmagic.selectors;
 
-import com.imaginarycode.minecraft.hubmagic.HubMagic;
+import com.imaginarycode.minecraft.bhubmagic.HubMagic;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 

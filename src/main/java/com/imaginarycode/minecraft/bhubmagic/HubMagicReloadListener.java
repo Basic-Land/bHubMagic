@@ -24,9 +24,16 @@
  *
  * For more information, please refer to <http://unlicense.org/>
  */
-package com.imaginarycode.minecraft.hubmagic;
+package com.imaginarycode.minecraft.bhubmagic;
 
-public enum ReconnectDetermination {
-    REASONS,
-    SERVERS
+import net.md_5.bungee.api.event.ProxyReloadEvent;
+import net.md_5.bungee.api.plugin.Listener;
+import net.md_5.bungee.event.EventHandler;
+
+public class HubMagicReloadListener implements Listener {
+    @EventHandler
+    public void onProxyReload(ProxyReloadEvent event) {
+        // Upon reload, some servers could have changed. Reload HubMagic too.
+        HubMagic.getPlugin().reloadPlugin();
+    }
 }

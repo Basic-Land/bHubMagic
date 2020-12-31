@@ -24,9 +24,9 @@
  *
  * For more information, please refer to <http://unlicense.org/>
  */
-package com.imaginarycode.minecraft.hubmagic;
+package com.imaginarycode.minecraft.bhubmagic;
 
-import com.imaginarycode.minecraft.hubmagic.ping.PingResult;
+import com.imaginarycode.minecraft.bhubmagic.ping.PingResult;
 import net.md_5.bungee.api.Callback;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;

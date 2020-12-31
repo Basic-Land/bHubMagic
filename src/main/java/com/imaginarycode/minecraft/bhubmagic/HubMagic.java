@@ -24,15 +24,15 @@
  *
  * For more information, please refer to <http://unlicense.org/>
  */
-package com.imaginarycode.minecraft.hubmagic;
+package com.imaginarycode.minecraft.bhubmagic;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Multimap;
-import com.imaginarycode.minecraft.hubmagic.ping.PingStrategy;
-import com.imaginarycode.minecraft.hubmagic.ping.bungee.BungeePingStrategy;
-import com.imaginarycode.minecraft.hubmagic.ping.zh32.Zh32PingStrategy;
-import com.imaginarycode.minecraft.hubmagic.selectors.*;
+import com.imaginarycode.minecraft.bhubmagic.ping.PingStrategy;
+import com.imaginarycode.minecraft.bhubmagic.ping.bungee.BungeePingStrategy;
+import com.imaginarycode.minecraft.bhubmagic.ping.zh32.Zh32PingStrategy;
+import com.imaginarycode.minecraft.bhubmagic.selectors.*;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -90,6 +90,8 @@ public class HubMagic extends Plugin {
             requiredClientVersions.putAll(key, section.getIntList(key));
         }
 
+        // BOha z toho mi je zle..
+
         getProxy().getPluginManager().registerListener(this, new ConnectionListener());
         getProxy().getPluginManager().registerListener(this, new HubMagicReloadListener());
         getProxy().getPluginManager().registerCommand(this, new HubMagicCommand());
@@ -111,8 +113,10 @@ public class HubMagic extends Plugin {
 
     void reloadPlugin() {
         try {
-            if (!getDataFolder().mkdir()) {
-                throw new IOException("Unable to create data folder.");
+            if (!getDataFolder().exists()) {
+                if (!getDataFolder().mkdir()) {
+                    throw new IOException("Unable to create data folder.");
+                }
             }
             configuration = createOrLoadConfig();
         } catch (IOException e) {
